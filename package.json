@@ -1,0 +1,32 @@
+{
+  "name": "vaxstress",
+  "version": "1.0.0",
+  "description": "VaxStresser Best IP Stresser 2025",
+  "main": "apiserver.js",
+  "scripts": {
+    "start": "node apiserver.js",
+    "test": "jest --detectOpenHandles --forceExit",
+    "dev": "node apiserver.js"
+  },
+  "keywords": [
+    "api",
+    "stresser",
+    "http",
+    "proxy",
+    "load-testing"
+  ],
+  "author": "Xyrnth",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "http-agent-keepalive": "^4.2.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
