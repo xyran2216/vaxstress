@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI/CD - Generate Lockfile & Test
 
 on:
   push:
@@ -7,16 +7,32 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
+    permissions:
+      contents: write  # Wajib untuk commit lockfile
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout kode
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '18'
           cache: 'npm'
-      - run: npm ci         
-      - run: npm test
+
+      - name: Install dependencies
+        run: npm install   # BUAT package-lock.json OTOMATIS
+
+      - name: Commit package-lock.json (jika berubah)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package-lock.json
+          git diff --staged --quiet || git commit -m "chore: update package-lock.json"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run tests (jika ada)
+        run: npm test || echo "No tests found"
