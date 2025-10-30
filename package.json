@@ -2,21 +2,21 @@
   "name": "vaxstress",
   "version": "1.0.0",
   "description": "HTTP Stresser API with proxy, RPS, threads",
-  "main": "server.js",
+  "main": "apiserver.js",
   "scripts": {
     "start": "node apiserver.js",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "cors": "^2.8.5",
-    "http-agent-keepalive": "^4.2.1"
+    "undici": "^6.19.8"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "supertest": "^6.3.4"
+    "supertest": "^7.0.0"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   }
 }
